@@ -163,7 +163,56 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 
 				$plugin_info = unserialize( $response['body'] );
 
-				echo $plugin_info->name;
+				echo $plugin_info->name; ?>
+
+			<h2>Plugin Stats</h2>
+
+				<!--Actual list table-->
+				<table class="wp-list-table widefat fixed posts">
+					<!--Table header row-->
+					<thead>
+					<tr>
+						<th scope='col' id='title' class='manage-column column-title'>Title</th>
+						<th scope='col' id='author' class='manage-column column-code'>Code</th>
+						<th scope='col' id='categories' class='manage-column column-description'>Description</th>
+						<th scope='col' id='tags' class='manage-column column-atts'>Attributes</th>
+						<th scope='col' id='comments' class='manage-column column-category'>Category</th>
+						<th scope='col' id='date' class='manage-column column-example'>Example</th>
+					</tr>
+					</thead>
+
+					<tfoot>
+					<!--Table footer-->
+					<tr>
+						<th scope='col' class='manage-column column-title'>Title</th>
+						<th scope='col' class='manage-column column-code'>Code</th>
+						<th scope='col' class='manage-column column-description'>Description</th>
+						<th scope='col' class='manage-column column-atts'>Attributes</th>
+						<th scope='col' class='manage-column column-category'>Category</th>
+						<th scope='col' class='manage-column column-example sortable asc'>Example</th>
+					</tr>
+					</tfoot>
+
+					<tbody id="the-list">
+						<tr class="post-0 type-post status-publish format-standard hentry category-uncategorized alternate iedit author-self level-0">
+							<td class="post-title page-title column-title">
+								<strong>name of plugin</strong>
+							</td>
+							<td class="code column-code">
+							          [usl_button]
+							</td>
+							<td class="description column-description">
+							          wassup
+							</td>
+							<td class="atts column-atts">hee haw</td>
+							<td class="category column-category">
+							          blaa</td>
+							<td class="example column-example">
+							          stuff
+							</td>
+						</tr>
+					</tbody>
+				</table><?php
 			}
 		}
 
