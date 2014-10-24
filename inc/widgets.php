@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class ClientDashWordPress.orgPluginStats_Widgets
+ * Class ClientDashWordPressPluginStats_Widgets
  *
  * This is an optional class for adding widgets to the Client Dash Settings -> Widgets tab to be made available for use
  * on the dashboard.
  */
-class ClientDashWordPress.orgPluginStats_Widgets extends ClientDash_Widgets_API {
+class ClientDashWordPressPluginStats_Widgets extends ClientDash_Widgets_API {
 
 	/**
 	 * This is where all of the widgets to be created go.
@@ -22,14 +22,14 @@ class ClientDashWordPress.orgPluginStats_Widgets extends ClientDash_Widgets_API 
 	 * used below.
 	 */
 	public static $widgets = array(
-		'client_dash___wordpress.org_plugin_stats_widget' => array(
-			'title'             => 'Client Dash - WordPress.org Plugin Stats Widget',
+		'client_dash_wordpress_plugin_stats_widget' => array(
+			'title'             => 'Client Dash - WordPress Plugin Stats Widget',
 			'description'       => 'My awesome extension comes with this great widget.',
 			//
 			// __CLASS__ provides the name of the current class. This tells the widget creator that the function is
 			// inside of this class.
-			'callback'          => array( __CLASS__, 'client_dash___wordpress.org_plugin_stats_widget_callback' ),
-			'settings_callback' => array( __CLASS__, 'client_dash___wordpress.org_plugin_stats_widget_settings_callback' ),
+			'callback'          => array( __CLASS__, 'client_dash_wordpress_plugin_stats_widget_callback' ),
+			'settings_callback' => array( __CLASS__, 'client_dash_wordpress_plugin_stats_widget_settings_callback' ),
 		)
 	);
 
@@ -79,12 +79,12 @@ class ClientDashWordPress.orgPluginStats_Widgets extends ClientDash_Widgets_API 
 	 * Pro Tip: Use the function "self::get_field()" (as you can see below) to get all of the custom form data you may
 	 * have created in the widget settings.
 	 */
-	public static function client_dash___wordpress.org_plugin_stats_widget_callback( $null, $meta_box ) {
+	public static function client_dash_wordpress_plugin_stats_widget_callback( $null, $meta_box ) {
 
 		// IMPORTANT: This line is necessary to retrieve the values
 		$ID = $meta_box['id'];
 		?>
-		<h4><strong>Client Dash - WordPress.org Plugin Stats Widget Values</strong></h4>
+		<h4><strong>Client Dash - WordPress Plugin Stats Widget Values</strong></h4>
 
 		<p>
 			Text Field: <strong><?php echo self::get_field( $ID, 'text_field' ); ?></strong>
@@ -117,20 +117,20 @@ class ClientDashWordPress.orgPluginStats_Widgets extends ClientDash_Widgets_API 
 	 * form input, then simply use the "self::get_field_name()" function for supplying the input name. This ensures
 	 * that data saving and retrieval can still be handled by Client Dash.
 	 */
-	public static function client_dash___wordpress.org_plugin_stats_widget_settings_callback( $ID ) {
+	public static function client_dash_wordpress_plugin_stats_widget_settings_callback( $ID ) {
 
 		// NOTE: To find out how to use these fields, please visit the Client Dash documentation page.
 
 		echo self::text_field(
 			$ID,
 			'text_field',
-			'Client Dash - WordPress.org Plugin Stats Text'
+			'Client Dash - WordPress Plugin Stats Text'
 		);
 
 		echo self::checkbox_field(
 			$ID,
 			'checkbox_field',
-			'Client Dash - WordPress.org Plugin Stats Checkbox',
+			'Client Dash - WordPress Plugin Stats Checkbox',
 			array(
 				'title' => 'This is a custom title attr! Feel free to add as many attr\'s as you like!',
 			)
@@ -139,13 +139,13 @@ class ClientDashWordPress.orgPluginStats_Widgets extends ClientDash_Widgets_API 
 		echo self::textarea_field(
 			$ID,
 			'textarea_field',
-			'Client Dash - WordPress.org Plugin Stats Textarea'
+			'Client Dash - WordPress Plugin Stats Textarea'
 		);
 
 		echo self::select_field(
 			$ID,
 			'select_field',
-			'Client Dash - WordPress.org Plugin Stats Select Box',
+			'Client Dash - WordPress Plugin Stats Select Box',
 			array(
 				'Option 1' => 'option_1',
 				'Option 2' => 'option_2',
@@ -180,4 +180,4 @@ class ClientDashWordPress.orgPluginStats_Widgets extends ClientDash_Widgets_API 
 }
 
 // Instantiates the class. Do NOT remove this line or nothing will work.
-new ClientDashWordPress.orgPluginStats_Widgets();
+new ClientDashWordPressPluginStats_Widgets();

@@ -1,14 +1,14 @@
 <?php
 /*
-Plugin Name: Client Dash - WordPress.org Plugin Stats
-Description: Creates a widget which is useable on the dashboard for displaying stats for a specified plugin that is hosted on wordpress.org. It also creates an optional tab on the Reports page for rendering information about plugins hosted on wordpress.org.
+Plugin Name: Client Dash - WordPress Plugin Stats
+Description: Creates a widget which is useable on the dashboard for displaying stats for a specified plugin that is hosted on wordpress. It also creates an optional tab on the Reports page for rendering information about plugins hosted on wordpress.org.
 Version: 0.1.0
 Author: Kyle Maurer
 
 Author URI: http://clientdash.io
 */
 
-if ( ! function_exists( 'client_dash___wordpress.org_plugin_stats_wrapper' ) ) {
+if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 
 	/**
 	 * The function to launch our plugin.
@@ -16,11 +16,11 @@ if ( ! function_exists( 'client_dash___wordpress.org_plugin_stats_wrapper' ) ) {
 	 * This entire class is wrapped in this function because we have to ensure that Client Dash has been loaded before our
 	 * extension.
 	 */
-	function client_dash___wordpress.org_plugin_stats_wrapper() {
+	function client_dash_wordpress_plugin_stats_wrapper() {
 		if ( ! class_exists( 'ClientDash' ) ) {
 
 			// Change me! Change me to the name of the notice function at the bottom
-			add_action( 'admin_notices', '_client_dash___wordpress.org_plugin_stats_notice' );
+			add_action( 'admin_notices', '_client_dash_wordpress_plugin_stats_notice' );
 
 			return;
 		}
@@ -31,14 +31,14 @@ if ( ! function_exists( 'client_dash___wordpress.org_plugin_stats_wrapper' ) ) {
 		 * The main class for the extension. Be sure to rename this class something that is unique to your extension.
 		 * Duplicate classes will break PHP.
 		 */
-		class ClientDashWordPress.orgPluginStats extends ClientDash {
+		class ClientDashWordPressPluginStats extends ClientDash {
 
 			/**
 			 * Your unique ID.
 			 *
 			 * This will be prefixed on many things throughout the plugin.
 			 */
-			public static $ID = 'client_dash___wordpress.org_plugin_stats';
+			public static $ID = 'client_dash_wordpress_plugin_stats';
 
 			/**
 			 * This is the page that you want your new tab to reside in.
@@ -153,30 +153,38 @@ if ( ! function_exists( 'client_dash___wordpress.org_plugin_stats_wrapper' ) ) {
 			 * This is where all of the content section content goes! Add anything you like to this function.
 			 */
 			public function section_output() {
+				$args = (object) array( 'slug' => 'betterify' );
 
-				// CHANGE THIS
-				echo 'This is where your new content section\'s content goes.';
+				$request = array( 'action' => 'plugin_information', 'timeout' => 15, 'request' => serialize( $args) );
+
+				$url = 'http://api.wordpress.org/plugins/info/1.0/';
+
+				$response = wp_remote_post( $url, array( 'body' => $request ) );
+
+				$plugin_info = unserialize( $response['body'] );
+
+				echo $plugin_info->name;
 			}
 		}
 
 		// Instantiate the class
-		$ClientDashWordPress.orgPluginStats = new ClientDashWordPress.orgPluginStats();
+		$ClientDashWordPressPluginStats = new ClientDashWordPressPluginStats();
 
 		// Include the file for your plugin settings.
-		include_once( $ClientDashWordPress.orgPluginStats->_path . 'inc/settings.php' );
+		include_once( $ClientDashWordPressPluginStats->_path . 'inc/settings.php' );
 
 		// Include the file for your plugin widget.
-		include_once( $ClientDashWordPress.orgPluginStats->_path . 'inc/widgets.php' );
+		include_once( $ClientDashWordPressPluginStats->_path . 'inc/widgets.php' );
 	}
 
-	add_action( 'plugins_loaded', 'client_dash___wordpress.org_plugin_stats_wrapper' );
+	add_action( 'plugins_loaded', 'client_dash_wordpress_plugin_stats_wrapper' );
 }
 
-if ( ! function_exists( '_client_dash___wordpress.org_plugin_stats_notice' ) ) {
+if ( ! function_exists( '_client_dash_wordpress_plugin_stats_notice' ) ) {
 	/**
 	 * Notices for if CD is not active.
 	 */
-	function _client_dash___wordpress.org_plugin_stats_notice() {
+	function _client_dash_wordpress_plugin_stats_notice() {
 
 		?>
 		<div class="error">

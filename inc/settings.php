@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class ClientDashWordPress.orgPluginStats_Settings
+ * Class ClientDashWordPressPluginStats_Settings
  */
-class ClientDashWordPress.orgPluginStats_Settings extends ClientDash_Settings_API {
+class ClientDashWordPressPluginStats_Settings extends ClientDash_Settings_API {
 
 	/**
 	 * This is the section name of your extension settings.
@@ -11,7 +11,7 @@ class ClientDashWordPress.orgPluginStats_Settings extends ClientDash_Settings_AP
 	 * This will be the display name of the content section that this extensions's settings reside in. If there is only one
 	 * content section within the tab, the name will not show.
 	 */
-	private static $section_name = 'Client Dash - WordPress.org Plugin Stats Settings';
+	private static $section_name = 'Plugin Stats';
 
 	/**
 	 * Your extension's main ID, as set in the main extension class.
@@ -69,7 +69,7 @@ class ClientDashWordPress.orgPluginStats_Settings extends ClientDash_Settings_AP
 	function __construct() {
 
 		// Transfer ID over to this class
-		self::$ID = ClientDashWordPress.orgPluginStats::$ID;
+		self::$ID = ClientDashWordPressPluginStats::$ID;
 
 		// Set the ID
 		$this->_settings_ID = self::$ID . '_settings';
@@ -81,7 +81,7 @@ class ClientDashWordPress.orgPluginStats_Settings extends ClientDash_Settings_AP
 		$this->add_content_section(
 			array(
 				'name'     => self::$section_name,
-				'tab'      => ClientDashWordPress.orgPluginStats::$settings_tab,
+				'tab'      => ClientDashWordPressPluginStats::$settings_tab,
 				'page'     => 'Settings',
 				'callback' => array( $this, 'settings_output' )
 			)
@@ -172,4 +172,4 @@ class ClientDashWordPress.orgPluginStats_Settings extends ClientDash_Settings_AP
 	}
 }
 
-new ClientDashWordPress.orgPluginStats_Settings();
+new ClientDashWordPressPluginStats_Settings();
