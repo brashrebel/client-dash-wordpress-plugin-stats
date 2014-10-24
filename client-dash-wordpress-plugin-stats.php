@@ -147,12 +147,7 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 				}
 			}
 
-			/**
-			 * Our section output.
-			 *
-			 * This is where all of the content section content goes! Add anything you like to this function.
-			 */
-			public function section_output() {
+			public function get_plugins() {
 				$args = (object) array( 'slug' => 'betterify' );
 
 				$request = array( 'action' => 'plugin_information', 'timeout' => 15, 'request' => serialize( $args) );
@@ -163,7 +158,16 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 
 				$plugin_info = unserialize( $response['body'] );
 
-				echo $plugin_info->name; ?>
+				return $plugin_info;
+			}
+			/**
+			 * Our section output.
+			 *
+			 * This is where all of the content section content goes! Add anything you like to this function.
+			 */
+			public function section_output() {
+			print_r($this->get_plugins());
+            ?>
 
 			<h2>Plugin Stats</h2>
 
