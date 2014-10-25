@@ -2,9 +2,8 @@
 /*
 Plugin Name: Client Dash - WordPress Plugin Stats
 Description: Creates a widget which is useable on the dashboard for displaying stats for a specified plugin that is hosted on wordpress. It also creates an optional tab on the Reports page for rendering information about plugins hosted on wordpress.org.
-Version: 0.1.0
+Version: 0.1
 Author: Kyle Maurer
-
 Author URI: http://clientdash.io
 */
 
@@ -25,12 +24,6 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 			return;
 		}
 
-		/**
-		 * Class MyCDExtension
-		 *
-		 * The main class for the extension. Be sure to rename this class something that is unique to your extension.
-		 * Duplicate classes will break PHP.
-		 */
 		class ClientDashWordPressPluginStats extends ClientDash {
 
 			/**
@@ -38,7 +31,7 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 			 *
 			 * This will be prefixed on many things throughout the plugin.
 			 */
-			public static $ID = 'client_dash_wordpress_plugin_stats';
+			public static $ID = 'cdwpps';
 
 			/**
 			 * This is the page that you want your new tab to reside in.
@@ -71,7 +64,7 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 			/**
 			 * This is the current version of your plugin. Keep it up to do date!
 			 */
-			public static $extension_version = '0.1.0';
+			public static $extension_version = '0.1';
 
 			/**
 			 * This is the path to the plugin.
