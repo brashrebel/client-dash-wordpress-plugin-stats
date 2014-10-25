@@ -148,74 +148,83 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 			}
 
 			public function get_plugins() {
-				$args = (object) array( 'slug' => 'betterify' );
 
-				$request = array( 'action' => 'plugin_information', 'timeout' => 15, 'request' => serialize( $args) );
+				$plugin_slugs = array( 'betterify', 'client-dash', 'display-post-meta' );
 
-				$url = 'http://api.wordpress.org/plugins/info/1.0/';
+				foreach ( $plugin_slugs as $plugin ) {
 
-				$response = wp_remote_post( $url, array( 'body' => $request ) );
+					$args        = (object) array( 'slug' => $plugin );
+					$request     = array(
+						'action'  => 'plugin_information',
+						'timeout' => 15,
+						'request' => serialize( $args )
+					);
+					$url         = 'http://api.wordpress.org/plugins/info/1.0/';
+					$response    = wp_remote_post( $url, array( 'body' => $request ) );
+					$plugin_info = unserialize( $response['body'] );
+					$plugins[]   = $plugin_info;
 
-				$plugin_info = unserialize( $response['body'] );
+				}
 
-				return $plugin_info;
+				return $plugins;
 			}
+
 			/**
 			 * Our section output.
 			 *
 			 * This is where all of the content section content goes! Add anything you like to this function.
 			 */
 			public function section_output() {
-			print_r($this->get_plugins());
-            ?>
+				//print_r($this->get_plugins());
+				?>
 
-			<h2>Plugin Stats</h2>
+				<h2>Plugin Stats</h2>
 
 				<!--Actual list table-->
 				<table class="wp-list-table widefat fixed posts">
-					<!--Table header row-->
-					<thead>
-					<tr>
-						<th scope='col' id='title' class='manage-column column-title'>Title</th>
-						<th scope='col' id='author' class='manage-column column-code'>Code</th>
-						<th scope='col' id='categories' class='manage-column column-description'>Description</th>
-						<th scope='col' id='tags' class='manage-column column-atts'>Attributes</th>
-						<th scope='col' id='comments' class='manage-column column-category'>Category</th>
-						<th scope='col' id='date' class='manage-column column-example'>Example</th>
-					</tr>
-					</thead>
+				<!--Table header row-->
+				<thead>
+				<tr>
+					<th scope='col' id='title' class='manage-column column-title'>Title</th>
+					<th scope='col' id='author' class='manage-column column-downloads'>Downloads</th>
+					<th scope='col' id='categories' class='manage-column column-ratings'>Ratings</th>
+					<th scope='col' id='tags' class='manage-column column-score'>Score</th>
+				</tr>
+				</thead>
 
-					<tfoot>
-					<!--Table footer-->
-					<tr>
-						<th scope='col' class='manage-column column-title'>Title</th>
-						<th scope='col' class='manage-column column-code'>Code</th>
-						<th scope='col' class='manage-column column-description'>Description</th>
-						<th scope='col' class='manage-column column-atts'>Attributes</th>
-						<th scope='col' class='manage-column column-category'>Category</th>
-						<th scope='col' class='manage-column column-example sortable asc'>Example</th>
-					</tr>
-					</tfoot>
+				<tfoot>
+				<!--Table footer-->
+				<tr>
+					<th scope='col' class='manage-column column-title'>Title</th>
+					<th scope='col' class='manage-column column-downloads'>Downloads</th>
+					<th scope='col' class='manage-column column-ratings'>Ratings</th>
+					<th scope='col' class='manage-column column-score'>Score</th>
+				</tr>
+				</tfoot>
 
-					<tbody id="the-list">
+				<tbody id="the-list">
+				<?php if ( $this->get_plugins() != null ) {
+					foreach ( $this->get_plugins() as $plugin ) {
+						?>
 						<tr class="post-0 type-post status-publish format-standard hentry category-uncategorized alternate iedit author-self level-0">
 							<td class="post-title page-title column-title">
-								<strong>name of plugin</strong>
+								<strong><?php echo $plugin->name; ?></strong>
 							</td>
-							<td class="code column-code">
-							          [usl_button]
+							<td class="downloads column-downloads">
+								<?php echo $plugin->downloaded; ?>
 							</td>
-							<td class="description column-description">
-							          wassup
+							<td class="ratings column-ratings">
+								<?php echo $plugin->num_ratings; ?>
 							</td>
-							<td class="atts column-atts">hee haw</td>
-							<td class="category column-category">
-							          blaa</td>
-							<td class="example column-example">
-							          stuff
+							<td class="score column-score">
+								<?php echo $plugin->rating; ?>
 							</td>
 						</tr>
-					</tbody>
+					<?php }
+				} else {
+					echo 'No results';
+				} ?>
+				</tbody>
 				</table><?php
 			}
 		}
