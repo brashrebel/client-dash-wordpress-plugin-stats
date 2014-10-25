@@ -149,6 +149,7 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 
 			public function get_plugins() {
 
+				$plugins = array();
 				$plugin_slugs = array( 'betterify', 'client-dash', 'display-post-meta' );
 
 				foreach ( $plugin_slugs as $plugin ) {
@@ -186,7 +187,8 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 				<thead>
 				<tr>
 					<th scope='col' id='title' class='manage-column column-title'>Title</th>
-					<th scope='col' id='author' class='manage-column column-downloads'>Downloads</th>
+					<th scope='col' id='author' class='manage-column column-author'>Author</th>
+					<th scope='col' id='downloads' class='manage-column column-downloads'>Downloads</th>
 					<th scope='col' id='categories' class='manage-column column-ratings'>Ratings</th>
 					<th scope='col' id='tags' class='manage-column column-score'>Score</th>
 				</tr>
@@ -196,6 +198,7 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 				<!--Table footer-->
 				<tr>
 					<th scope='col' class='manage-column column-title'>Title</th>
+					<th scope='col' class='manage-column column-author'>Author</th>
 					<th scope='col' class='manage-column column-downloads'>Downloads</th>
 					<th scope='col' class='manage-column column-ratings'>Ratings</th>
 					<th scope='col' class='manage-column column-score'>Score</th>
@@ -209,6 +212,9 @@ if ( ! function_exists( 'client_dash_wordpress.org_plugin_stats_wrapper' ) ) {
 						<tr class="post-0 type-post status-publish format-standard hentry category-uncategorized alternate iedit author-self level-0">
 							<td class="post-title page-title column-title">
 								<strong><?php echo $plugin->name; ?></strong>
+							</td>
+							<td class="downloads column-author">
+								<?php echo $plugin->author; ?>
 							</td>
 							<td class="downloads column-downloads">
 								<?php echo $plugin->downloaded; ?>
